@@ -2,42 +2,56 @@
 <html lang="es-ES">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Examen Diseño</title>
-  <!-- UIkit CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.18.3/dist/css/uikit.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Diseño</title>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.18.3/dist/css/uikit.min.css" />
 
-  <!-- UIkit JS -->
-  <script src="https://cdn.jsdelivr.net/npm/uikit@3.18.3/dist/js/uikit.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/uikit@3.18.3/dist/js/uikit-icons.min.js"></script>
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.18.3/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.18.3/dist/js/uikit-icons.min.js"></script>
+
+    <!-- CSS Propio -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-  <header>
-    <nav class="uk-navbar-container">
-      <div class="uk-container">
-        <div uk-navbar>
-          <div class="uk-navbar-left">
-            <ul class="uk-navbar-nav">
-              <li class="uk-active"><a href="#">Active</a></li>
-              <li>
-                <a href="#">Parent</a>
-                <div class="uk-navbar-dropdown">
-                  <ul class="uk-nav uk-navbar-dropdown-nav">
-                    <li class="uk-active"><a href="#">Active</a></li>
-                    <li><a href="#">Item</a></li>
-                    <li><a href="#">Item</a></li>
-                  </ul>
+    <header>
+        <nav class="uk-navbar-container uk-margin">
+            <div class="uk-container uk-container-expand">
+                <div uk-navbar>
+                    <div class="uk-navbar-left">
+                        <a class="uk-navbar-toggle" href="#offcanvas-slide" uk-toggle>
+                            <span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Menu</span>
+                        </a>
+                        <div id="offcanvas-slide" uk-offcanvas>
+                            <div class="uk-offcanvas-bar">
+                                <ul class="uk-nav uk-nav-default">
+                                    <li><a href="#">TEST 1</a></li>
+                                    <li><a href="#">TEST 2</a></li>
+                                    <li><a href="#">TEST 3</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-navbar-right">
+                        <a href="index.html" class="uk-navbar-item uk-logo">Logo</a>
+                    </div>
                 </div>
-              </li>
-              <li><a href="#">Item</a></li>
-            </ul>
-          </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="uk-container">
+            test
         </div>
-      </div>
-    </nav>
-  </header>
+    </main>
+    <footer id="page-footer" class="uk-margin-top" uk-sticky>
+        <div class="uk-container uk-padding-small">
+            <p class="uk-text-small">Copyright(c).</p>
+        </div>
+    </footer>
 </body>
 
 </html>
