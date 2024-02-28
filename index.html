@@ -37,21 +37,30 @@
       </div>
     </nav>
   </header>
+
   <!-- Offcanvas -->
   <aside id="offcanvas-slide" uk-offcanvas="overlay: true">
     <div class="uk-offcanvas-bar">
       <button class="uk-offcanvas-close" type="button" uk-close></button>
       <h1>Menú</h1>
       <ul class="uk-nav uk-nav-default">
-        <li class="uk-active"><a href="index.html">Inicio</a></li>
+        <li class="uk-active"><a onclick="UIkit.offcanvas(document.getElementById('offcanvas-slide')).hide();">Inicio</a></li>
         <li><a href="#">Estadísticas</a></li>
         <li><a href="#">TEST 3</a></li>
       </ul>
     </div>
   </aside>
+
   <main>
+    <!-- Contenido principal -->
     <div id="moviesContainer" class="uk-container"></div>
+
+    <!-- Paginación -->
+    <div id="paginador">
+      <ul class="uk-pagination"></ul>
+    </div>
   </main>
+  
   <footer id="page-footer" class="uk-margin-top" uk-sticky>
     <div class="uk-container uk-padding-small">
       <p class="uk-text-small">Copyright(c).</p>

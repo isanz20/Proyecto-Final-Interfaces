@@ -1,67 +1,59 @@
 const DATA_URL = "https://raw.githubusercontent.com/isanz20/Proyecto-Final-Interfaces/main/res/imdb_top_1000.json";
+let paginaActual = 1;
 
 class Movie {
     constructor(Poster_Link, Series_Title, Released_Year, Certificate, Runtime, Genre, IMDB_Rating, Overview, Meta_score, Director, Star1, Star2, Star3, Star4, No_of_Votes, Gross) {
-        this.poster_link = Poster_Link;
-        this.series_title = Series_Title;
-        this.released_year = Released_Year;
-        this.certificate = Certificate;
-        this.runtime = Runtime;
-        this.genre = Genre;
-        this.imdb_rating = IMDB_Rating;
-        this.overview = Overview;
-        this.meta_score = Meta_score;
-        this.director = Director;
-        this.star1 = Star1;
-        this.star2 = Star2;
-        this.star3 = Star3;
-        this.star4 = Star4;
-        this.no_of_votes = No_of_Votes;
-        this.gross = Gross;
+        this.Poster_Link = Poster_Link;
+        this.Series_Title = Series_Title;
+        this.Released_Year = Released_Year;
+        this.Certificate = Certificate;
+        this.Runtime = Runtime;
+        this.Genre = Genre;
+        this.IMDB_Rating = IMDB_Rating;
+        this.Overview = Overview;
+        this.Meta_score = Meta_score;
+        this.Director = Director;
+        this.Star1 = Star1;
+        this.Star2 = Star2;
+        this.Star3 = Star3;
+        this.Star4 = Star4;
+        this.No_of_Votes = No_of_Votes;
+        this.Gross = Gross;
     }
 }
 
-function cargarDatos() {
-    fetch(DATA_URL)
-        .then(response => response.json())
-        .then(peliculas => {
-            console.log(peliculas);
-            let contenedor = document.getElementById("moviesContainer");
-            peliculas.forEach(p => {
-                let pelicula = new Movie(p.Poster_Link, p.Series_Title, p.Released_Year, p.Certificate, p.Runtime, p.Genre, p.IMDB_Rating, p.Overview, p.Meta_score, p.Director, p.Star1, p.Star2, p.Star3, p.Star4, p.No_of_Votes, p.Gross);
-                let card = crearCard(pelicula);
-                contenedor.appendChild(card);
-            });
-        });
+async function cargarDatos() {
+    let datos = await fetch(DATA_URL);
+    return datos.json();
 }
 
 /**
  * 
  * @param {Movie} pelicula 
- * @returns 
+ * @returns {HTMLElement}
  */
 function crearCard(pelicula) {
     console.log(pelicula);
     let card = document.createElement("div");
     card.innerHTML = `
-    <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
-        <div class="uk-card-media-left uk-cover-container">
-            <img src="${pelicula.poster_link}" alt="${pelicula.series_title}" uk-cover>
+    <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-4@s uk-margin" uk-grid>
+        <div class="uk-card-media-left">
+            <img src="${pelicula.Poster_Link}" alt="${pelicula.Series_Title}">
             <canvas width="70" height="100"></canvas>
         </div>
         <div>
             <div class="uk-card-body">
-                <div class="uk-card-badge uk-label">${pelicula.imdb_rating}</div>
-                <h3 class="uk-card-title">${pelicula.series_title}</h3>
+                <div class="uk-card-badge uk-label">${pelicula.IMDB_Rating}</div>
+                <h3 class="uk-card-title">${pelicula.Series_Title}</h3>
                 <ul class="uk-list">
-                    <li><strong>Año:</strong> ${pelicula.released_year}</li>
-                    <li><strong>Clasificación:</strong> ${pelicula.certificate}</li>
-                    <li><strong>Duración:</strong> ${pelicula.runtime}</li>
-                    <li><strong>Género:</strong> ${pelicula.genre}</li>
-                    <li><strong>Director:</strong> ${pelicula.director}</li>
-                    <li><strong>Estrellas:</strong> ${pelicula.star1}, ${pelicula.star2}, ${pelicula.star3}, ${pelicula.star4}</li>
-                    <li><strong>Votos:</strong> ${pelicula.no_of_votes}</li>
-                    <li><strong>Ingresos:</strong> ${pelicula.gross}</li>
+                    <li><strong>Año:</strong> ${pelicula.Released_Year}</li>
+                    <li><strong>Clasificación:</strong> ${pelicula.Certificate}</li>
+                    <li><strong>Duración:</strong> ${pelicula.Runtime}</li>
+                    <li><strong>Género:</strong> ${pelicula.Genre}</li>
+                    <li><strong>Director:</strong> ${pelicula.Director}</li>
+                    <li><strong>Estrellas:</strong> ${pelicula.Star1}, ${pelicula.Star2}, ${pelicula.Star3}, ${pelicula.Star4}</li>
+                    <li><strong>Votos:</strong> ${pelicula.No_of_Votes}</li>
+                    <li><strong>Ingresos:</strong> ${pelicula.Gross}</li>
                 </ul>
             </div>
         </div>
@@ -70,4 +62,33 @@ function crearCard(pelicula) {
     return card;
 }
 
-window.onload = cargarDatos;
+function paginarDatos(peliculas, cantidad) {
+    let datosPaginados = [];
+    console.log('longitud array: ' + peliculas.length);
+    for (let i = 0; i < peliculas.length; i+=cantidad) {
+        const p = peliculas[i];
+        if (!p) {
+            break;
+        }
+        datosPaginados.push(peliculas.slice(i, i + cantidad));
+    }
+    return datosPaginados;
+}
+
+async function main() {
+    let peliculas = await cargarDatos();
+    let cantidad = 40;
+    let contenedor = document.getElementById("moviesContainer");
+    console.log(peliculas);
+    let datosPaginados = paginarDatos(peliculas, cantidad);
+    console.log("PELÍCULAS PAGINADAS");
+    console.log(datosPaginados);
+    // let card = crearCard(datosPaginados[paginaActual]);
+    datosPaginados[0].forEach(p => {
+        let card = crearCard(p);
+        contenedor.appendChild(card);
+    });
+    
+}
+
+window.onload = main;
