@@ -2,7 +2,7 @@
 Entrega: 28/02/2024
 
 ## Planteamiento
-1. Cabecera general con Logo (❌), título (✅) y [menú hamburguesa](https://freefrontend.com/css-hamburger-menu-icons/) (✅) para mostrar un offcanvas de [UIKit](https://getuikit.com/docs/offcanvas). (✅)
+1. Cabecera general con Logo (✅), título (✅) y [menú hamburguesa](https://freefrontend.com/css-hamburger-menu-icons/) (✅) para mostrar un offcanvas de [UIKit](https://getuikit.com/docs/offcanvas). (✅)
 2. Listado de cards paginados usando la librería UIKit con [cards](https://getuikit.com/docs/card) (✅), [pagination](https://getuikit.com/docs/pagination) (✅) y [offcanvas-nav](https://getuikit.com/docs/offcanvas) entre otros posibiles como [badge](https://getuikit.com/docs/badge) (✅) para indicar la puntuación de la película. Opción de usar otra librería.
 3. El JSON se consumirá por Fetch API por completo desde un repositorio en Internet como Github o Drive. (✅)
 4. Gráfica de barras con el eje X los años y el eje Y la media de dinero ganado ("gross") a la que se accede desde el offcanvas ([Apache echarts](https://echarts.apache.org/en/index.html)). (❌)

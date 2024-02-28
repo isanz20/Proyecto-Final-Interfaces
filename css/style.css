@@ -8,6 +8,10 @@ nav {
     background-color: #e6e4e4 !important;
 }
 
+.uk-logo img {
+    height: 50px;
+}
+
 main {
     flex: 1 0 auto;
 }
