@@ -35,10 +35,10 @@ async function cargarDatos() {
 function crearCard(pelicula) {
     let card = document.createElement("div");
     card.innerHTML = `
-    <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-4@s uk-margin" uk-grid>
-        <div class="uk-card-media-left">
-            <img src="${pelicula.Poster_Link}" alt="${pelicula.Series_Title}">
-            <canvas width="70" height="100"></canvas>
+    <div class="uk-card uk-card-default uk-width-2-3@m uk-grid-collapse uk-child-width-1-3@s uk-margin" uk-grid>
+        <div class="uk-card-media-left uk-cover-container">
+            <img src="${pelicula.Poster_Link}" alt="${pelicula.Series_Title}" uk-cover>
+            <canvas width="70" height=""></canvas>
         </div>
         <div>
             <div class="uk-card-body">
@@ -47,18 +47,19 @@ function crearCard(pelicula) {
                 <ul class="uk-list">
                     <li><strong>Año:</strong> ${pelicula.Released_Year}</li>
                     <li><strong>Clasificación:</strong> ${pelicula.Certificate}</li>
-                    <li><strong>Duración:</strong> ${pelicula.Runtime}</li>
                     <li><strong>Género:</strong> ${pelicula.Genre}</li>
-                    <li><strong>Director:</strong> ${pelicula.Director}</li>
-                    <li><strong>Estrellas:</strong> ${pelicula.Star1}, ${pelicula.Star2}, ${pelicula.Star3}, ${pelicula.Star4}</li>
-                    <li><strong>Votos:</strong> ${pelicula.No_of_Votes}</li>
-                    <li><strong>Ingresos:</strong> ${pelicula.Gross}</li>
                 </ul>
             </div>
         </div>
     </div>
     `;
     return card;
+    // <li><strong>Duración:</strong> ${pelicula.Runtime}</li>
+    // <li><strong>Director:</strong> ${pelicula.Director}</li>
+    // <li><strong>Estrellas:</strong> ${pelicula.Star1}, ${pelicula.Star2}, ${pelicula.Star3}, ${pelicula.Star4}</li>
+    // <li><strong>Votos:</strong> ${pelicula.No_of_Votes}</li>
+    // <li><strong>Ingresos:</strong> ${pelicula.Gross}</li>
+
 }
 
 function llenarContenido(numPagina, datosPaginados) {
@@ -96,7 +97,7 @@ function construirPaginador(datosPaginados){
     `;
     ulPaginador.appendChild(pagAnterior);
 
-    for (let i = 1; i < datosPaginados.length; i++) {
+    for (let i = 1; i <= datosPaginados.length; i++) {
         console.log('creando paginador');
         let pagLi = document.createElement("li");
         pagLi.id = `pag-${i}`;
@@ -122,15 +123,16 @@ function construirPaginador(datosPaginados){
 function prepararPaginador(datosPaginados) {
     let pagAnterior = document.getElementById("pagAnterior");
     pagAnterior.onclick = function() {
-        if (paginaActual > 0) {
+        if (paginaActual > 1) {
             paginaActual--;
             llenarContenido(paginaActual-1, datosPaginados);
             construirPaginador(datosPaginados);
         }
     }
 
-    for (let i = 1; i < datosPaginados.length; i++) {
+    for (let i = 1; i <= datosPaginados.length; i++) {
         let pagLi = document.getElementById(`pag-${i}`);
+        console.log(pagLi);
         pagLi.onclick = function() {
             llenarContenido(i-1, datosPaginados);
             paginaActual = i;
@@ -150,7 +152,7 @@ function prepararPaginador(datosPaginados) {
 
 async function main() {
     let peliculas = await cargarDatos();
-    let cantidad = 40;
+    let cantidad = 20;
     let contenedor = document.getElementById("moviesContainer");
     console.log(peliculas);
     let datosPaginados = paginarDatos(peliculas, cantidad);
