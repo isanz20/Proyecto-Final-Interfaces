@@ -54,12 +54,6 @@ function crearCard(pelicula) {
     </div>
     `;
     return card;
-    // <li><strong>Duración:</strong> ${pelicula.Runtime}</li>
-    // <li><strong>Director:</strong> ${pelicula.Director}</li>
-    // <li><strong>Estrellas:</strong> ${pelicula.Star1}, ${pelicula.Star2}, ${pelicula.Star3}, ${pelicula.Star4}</li>
-    // <li><strong>Votos:</strong> ${pelicula.No_of_Votes}</li>
-    // <li><strong>Ingresos:</strong> ${pelicula.Gross}</li>
-
 }
 
 function llenarContenido(numPagina, datosPaginados) {
@@ -75,7 +69,7 @@ function llenarContenido(numPagina, datosPaginados) {
 function paginarDatos(peliculas, cantidad) {
     let datosPaginados = [];
     //console.log('longitud array: ' + peliculas.length);
-    for (let i = 0; i < peliculas.length; i+=cantidad) {
+    for (let i = 0; i < peliculas.length; i += cantidad) {
         const p = peliculas[i];
         if (!p) {
             break;
@@ -85,7 +79,7 @@ function paginarDatos(peliculas, cantidad) {
     return datosPaginados;
 }
 
-function construirPaginador(datosPaginados){
+function construirPaginador(datosPaginados) {
     let paginador = document.getElementById("paginador");
     let ulPaginador = paginador.querySelector("ul");
     ulPaginador.innerHTML = "";
@@ -122,29 +116,29 @@ function construirPaginador(datosPaginados){
 
 function prepararPaginador(datosPaginados) {
     let pagAnterior = document.getElementById("pagAnterior");
-    pagAnterior.onclick = function() {
+    pagAnterior.onclick = function () {
         if (paginaActual > 1) {
             paginaActual--;
-            llenarContenido(paginaActual-1, datosPaginados);
+            llenarContenido(paginaActual - 1, datosPaginados);
             construirPaginador(datosPaginados);
         }
     }
 
     for (let i = 1; i <= datosPaginados.length; i++) {
         let pagLi = document.getElementById(`pag-${i}`);
-        console.log(pagLi);
-        pagLi.onclick = function() {
-            llenarContenido(i-1, datosPaginados);
+        // console.log(pagLi);
+        pagLi.onclick = function () {
+            llenarContenido(i - 1, datosPaginados);
             paginaActual = i;
             construirPaginador(datosPaginados);
         }
     }
 
     let pagSiguiente = document.getElementById("pagSiguiente");
-    pagSiguiente.onclick = function() {
+    pagSiguiente.onclick = function () {
         if (paginaActual < datosPaginados.length) {
             paginaActual++;
-            llenarContenido(paginaActual-1, datosPaginados);
+            llenarContenido(paginaActual - 1, datosPaginados);
             construirPaginador(datosPaginados);
         }
     }
@@ -164,7 +158,34 @@ async function main() {
         contenedor.appendChild(card);
     });
     construirPaginador(datosPaginados);
-    
+}
+
+async function grossPorAnio() {
+    let grossAnio = new Map();
+    let pelisAnio = new Map();
+    let resultado = [];
+    let pelis = await cargarDatos();
+
+    for (let i = 0; i < pelis.length; i++) {
+        let peli = pelis[i];
+        if (pelisAnio.get(peli.Released_Year)) {
+            let anios = parseInt(pelisAnio.get(peli.Released_Year));
+            anios++;
+            pelisAnio.set(peli.Released_Year, anios);
+        } else {
+            pelisAnio.set(peli.Released_Year, 1);
+        }
+        if (peli.Gross){ 
+            let gross = parseInt(peli.Gross.split(",").join(""));
+            if (grossAnio.get(peli.Released_Year)) {
+                gross += parseInt(grossAnio.get(peli.Released_Year));
+            }
+            grossAnio.set(peli.Released_Year, parseInt(gross));
+        }
+    }
+    grossAnio = new Map([...grossAnio.entries()].sort());
+    resultado.push(grossAnio, pelisAnio);
+    return resultado;
 }
 
 window.onload = main;

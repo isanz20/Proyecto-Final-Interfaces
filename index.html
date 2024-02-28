@@ -12,10 +12,14 @@
   <script src="https://cdn.jsdelivr.net/npm/uikit@3.18.3/dist/js/uikit.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/uikit@3.18.3/dist/js/uikit-icons.min.js"></script>
 
+  <!-- echarts -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+
   <!-- CSS Propio -->
   <link rel="stylesheet" href="css/style.css">
   <!-- JS Propio -->
-  <script src="js/script.js"></script>
+  <script src="js/script.js" defer></script>
+  <script src="js/graficos.js" defer></script>
 </head>
 
 <body>
@@ -44,14 +48,28 @@
       <button class="uk-offcanvas-close" type="button" uk-close></button>
       <h1>Menú</h1>
       <ul class="uk-nav uk-nav-default">
-        <li class="uk-active"><a onclick="UIkit.offcanvas(document.getElementById('offcanvas-slide')).hide();">Inicio</a></li>
-        <li><a href="#">Estadísticas</a></li>
-        <li><a href="#">TEST 3</a></li>
+        <li class="uk-active"><a
+            onclick="UIkit.offcanvas(document.getElementById('offcanvas-slide')).hide();">Inicio</a></li>
+        <li><a uk-toggle="target: #estadisticas">Estadísticas</a></li>
       </ul>
     </div>
   </aside>
 
   <main>
+    <!-- Modal Estadísticas -->
+    <div id="estadisticas" class="uk-modal-container" uk-modal>
+      <div class="uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">Estadísticas</h2>
+        <div class="uk-flex uk-flex-center" style="width: 100%;">
+          <div id="graficoGross"></div>
+        </div>
+        <div class="uk-flex uk-flex-center" style="width: 100%;">
+          <div id="graficoAnios"></div>
+        </div>
+      </div>
+    </div>
+
     <!-- Contenido principal -->
     <div id="moviesContainer" class="uk-container"></div>
 
@@ -60,7 +78,7 @@
       <ul class="uk-pagination uk-flex-center" uk-margin></ul>
     </div>
   </main>
-  
+
   <footer id="page-footer" class="uk-margin-top" uk-sticky>
     <div class="uk-container uk-padding-small">
       <p class="uk-text-small">Iñaki Sanz Valero - 2º DAW</p>

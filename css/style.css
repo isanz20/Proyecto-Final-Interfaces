@@ -16,6 +16,17 @@ main {
     flex: 1 0 auto;
 }
 
+#graficoGross {
+    width: 800px;
+    height: 400px;
+}
+
+#graficoAnios {
+    margin-top: 50px;
+    width: 800px;
+    height: 400px;
+}
+
 .uk-card {
     max-width: 600px;
 }
